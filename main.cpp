@@ -60,21 +60,46 @@ string hashFunction(const string& input) {
 
 int main() {
 
+    int mode;
     string filename;
     string content;
 
-    cout << "Turimi .txt failai: " << endl;
-    system("ls *.txt");
+    cout << "Pasirinkite rezima: " << endl;
+    cout << "1 - Ivesti teksta ranka" << endl;
+    cout << "2 - Nuskaityti teksta is pasirinkto failo" << endl;
+    cout << "Pasirinkimas: ";
 
-    cout << "Iveskite failo pavadinima: ";
-    cin >> filename;
+    cin >> mode;
 
-    if (!readFile(filename, content)) {
-        return 1;
+    switch (mode) {
+
+        case 1:
+            cout << "Iveskite teksta: ";
+            cin.ignore();
+            getline(cin, content);
+
+        break;
+
+        case 2:
+            cout << "Turimi .txt failai: " << endl;
+            system("ls *.txt");
+
+            cout << "Iveskite failo pavadinima: ";
+             cin >> filename;
+
+            if (!readFile(filename, content)) {
+                 return 1;
+            }
+
+            cout << "Nuskaitytas turinys: ";
+            cout << content << endl;
+
+        break;
+
+        default:
+            cout << "Neteisingas pasirinkimas!" << endl;
+            return 1;
     }
-
-    cout << "Nuskaitytas turinys:" << endl;
-    cout << content << endl;
 
     string hash = hashFunction(content);
     cout << "Hash: " << hash << endl;
