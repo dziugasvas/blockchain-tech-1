@@ -17,6 +17,8 @@ using std::setfill;
 
 bool readFile (const string& filename, string& content) {
 
+    content.clear();
+
     ifstream file(filename, std::ios::binary);
 
     if (!file.is_open()) {
@@ -58,11 +60,26 @@ string hashFunction(const string& input) {
     return result.str();
 }
 
-int main() {
+int main(int argc, char* argv[]) {
 
     int mode;
     string filename;
     string content;
+
+    if (argc > 1) {
+        filename = argv[1];
+
+        if (!readFile(filename, content)) {
+            return 1;
+        }
+
+        cout << "Naudojamas rezimas: failo nuskaitymas" << endl;
+
+        string hash = hashFunction(content);
+        cout << "Hash: " << hash << endl;
+
+        return 0;
+    }
 
     cout << "Pasirinkite rezima: " << endl;
     cout << "1 - Ivesti teksta ranka" << endl;
@@ -74,6 +91,7 @@ int main() {
     switch (mode) {
 
         case 1:
+            cout << "Naudojamas rezimas: teksto ivestis ranka" << endl;
             cout << "Iveskite teksta: ";
             cin.ignore();
             getline(cin, content);
@@ -81,6 +99,7 @@ int main() {
         break;
 
         case 2:
+            cout << "Naudojamas rezimas: failo nuskaitymas" << endl;
             cout << "Turimi .txt failai: " << endl;
             system("ls *.txt");
 
@@ -90,9 +109,6 @@ int main() {
             if (!readFile(filename, content)) {
                  return 1;
             }
-
-            cout << "Nuskaitytas turinys: ";
-            cout << content << endl;
 
         break;
 
