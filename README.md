@@ -1,6 +1,6 @@
 # Maišos funkcija
 
-Nuosava maišos funkcija, sukurta naudojant C++ kalbą.
+Maišos funkcija, sukurta naudojant C++ kalbą.
 
 ## Idėja
 
