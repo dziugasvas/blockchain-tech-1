@@ -1,0 +1,4 @@
+       Ilgis    Poru kolizijos
+          10                 0
+         100                 0
+         500                 0

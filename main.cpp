@@ -68,6 +68,10 @@ int main(int argc, char* argv[]) {
             testInputs();
             testSameInput();
             testDeterminism();
+            testSpeed();
+            testCollisions();
+            testAvalanche();
+            testGuessing();
             return 0;
 
         default:

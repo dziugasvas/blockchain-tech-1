@@ -12,6 +12,7 @@ using std::setfill;
 using std::ifstream;
 using std::cout;
 using std::endl;
+using std::vector;
 
 string hashFunction(const string& input) {
     uint32_t state[8];
@@ -56,4 +57,25 @@ bool readFile (const string& filename, string& content) {
 
     return true;
 
+}
+
+bool readLines(const string& filename, vector<string>& lines)
+{
+    ifstream file(filename);
+
+    if (!file.is_open())
+    {
+        return false;
+    }
+
+    string line;
+
+    while (getline(file, line))
+    {
+        lines.push_back(line);
+    }
+
+    file.close();
+
+    return true;
 }

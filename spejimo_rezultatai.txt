@@ -1,0 +1,23 @@
+Be druskos
+Tikslas: 4729
+Bandymu: 10000
+Sutapimu: 5
+Pirmas sutapimas: 4729
+Bandymu iki pirmo sutapimo: 4730
+Visi sutape kandidatai: 4699 4729 4732 5029 5032
+Laikas: 6856 us
+
+Su vieša druska
+Tikslas: 4729
+Druska: ABC
+Bandymu: 10000
+Sutapimu: 5
+Pirmas sutapimas: 4729
+Bandymu iki pirmo sutapimo: 4730
+Visi sutape kandidatai: 4699 4729 4732 5029 5032
+Laikas: 8156 us
+
+Slaptas atsitiktinumas
+Tikslas: 4729
+Atsitiktinumas: X7pQ2
+Hash patikrinimas: TAIP
