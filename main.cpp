@@ -65,6 +65,7 @@ int main(int argc, char* argv[]) {
 
         case 3:
             cout << "Atliekami testavimai:" << endl;
+            cout << endl;
             testInputs();
             testSameInput();
             testDeterminism();

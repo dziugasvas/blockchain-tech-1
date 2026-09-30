@@ -20,23 +20,27 @@ using std::ofstream;
 using std::setw;
 using std::set;
 
-void testInputs() {
+void testInputs()
+{
+    cout << "Ivesties testai:" << endl << endl;
 
-    string inputs[] = {
-        "",
-        "a",
-        "b"
-    };
+    int tests = 0;
+    int passed = 0;
 
-    for (const string& input : inputs) {
-        string hash = hashFunction(input);
-
-        cout << "Ivestis: \"" << input << "\"" << endl;
-        cout << "Hash: " << hash << endl;
-        cout << endl;
+    tests++;
+    if (hashFunction("") != "") {
+        passed++;
     }
 
-    srand(time(0));
+    tests++;
+    if (hashFunction("a") != "") {
+        passed++;
+    }
+
+    tests++;
+    if (hashFunction("a") != hashFunction("b")) {
+        passed++;
+    }
 
     string characters =
     "abcdefghijklmnopqrstuvwxyz"
@@ -50,12 +54,10 @@ void testInputs() {
         longInput += characters[randomIndex];
     }
 
-    string longHash = hashFunction(longInput);
-
-    cout << "Atsitiktine ASCII ivestis" << endl;
-    cout << "Ivesties ilgis: " << longInput.length() << endl;
-    cout << "Hash: " << longHash << endl;
-    cout << endl;
+    tests++;
+    if (hashFunction(longInput) != "") {
+        passed++;
+    }
 
     string originalas = "ciatestas";
 
@@ -63,60 +65,49 @@ void testInputs() {
     string pakeistasVidur = "ciatxstas";
     string pakeistaPabaig = "ciatestax";
 
-    cout << "Vieno simbolio pakeitimai: " << endl;
+    tests++;
+    if (hashFunction(originalas) != hashFunction(pakeistaPradz)) {
+        passed++;
+    }
 
-    cout << "Originalas: " << originalas << endl;
-    cout << "Hash: " << hashFunction(originalas) << endl;
+    tests++;
+    if (hashFunction(originalas) != hashFunction(pakeistasVidur)) {
+        passed++;
+    }
 
-    cout << "Pakeista pradzia: " << pakeistaPradz << endl;
-    cout << "Hash: " << hashFunction(pakeistaPradz) << endl;
+    tests++;
+    if (hashFunction(originalas) != hashFunction(pakeistaPabaig)) {
+        passed++;
+    }
 
-    cout << "Pakeistas vidurys: " << pakeistasVidur << endl;
-    cout << "Hash: " << hashFunction(pakeistasVidur) << endl;
+    tests++;
+    if (hashFunction("abcabcabcabc") != hashFunction("abcdef")) {
+        passed++;
+    }
 
-    cout << "Pakeista pabaiga: " << pakeistaPabaig << endl;
-    cout << "Hash: " << hashFunction(pakeistaPabaig) << endl;
+    tests++;
+    if (hashFunction("abcdef") != hashFunction("fedcba")) {
+        passed++;
+    }
 
-    cout << endl;
+    tests++;
+    if (hashFunction(" tekstas") != hashFunction("tekstas ")) {
+        passed++;
+    }
 
-    string structuredInput = "abcabcabcabcabcabcabcabc";
-
-    cout << "Strukturuota ivestis:" << endl;
-    cout << "Ivestis: " << structuredInput << endl;
-    cout << "Hash: " << hashFunction(structuredInput) << endl;
-    cout << endl;
-
-    cout << "Strukturuotos ivestys:" << endl;
-
-    cout << "Pasikartojantys simboliai:" << endl;
-    cout << hashFunction("abcabcabcabc") << endl;
-
-    cout << "Pakeista simboliu tvarka:" << endl;
-    cout << hashFunction("abcdef") << endl;
-    cout << hashFunction("fedcba") << endl;
-
-    cout << "Tarpas pradzioje:" << endl;
-    cout << hashFunction(" tekstas") << endl;
-
-    cout << "Tarpas pabaigoje:" << endl;
-    cout << hashFunction("tekstas ") << endl;
-
-    cout << "Be naujos eilutes: " << endl;
-    cout << hashFunction("tekstas") << endl;
-
-    cout << "Su naujos eilutes simboliu: " << endl;
-    cout << hashFunction("tekstas\n") << endl;
-
-    cout << endl;
-
-    cout << "UTF-8 ivestis:" << endl;
+    tests++;
+    if (hashFunction("tekstas") != hashFunction("tekstas\n")) {
+        passed++;
+    }
 
     string utf8Input = "ąčęėįšųūž";
 
-    cout << "Ivestis: " << utf8Input << endl;
-    cout << "Hash: " << hashFunction(utf8Input) << endl;
+    tests++;
+    if (hashFunction(utf8Input) != "") {
+        passed++;
+    }
 
-    cout << endl;
+    cout << passed << "/" << tests << " testai sekmingi" << endl;
 }
 
 void testSameInput()
