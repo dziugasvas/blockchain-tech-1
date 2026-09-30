@@ -4,9 +4,9 @@
 void testInputs();
 void testSameInput();
 void testDeterminism();
-void testSpeed();
+void testEfficiency();
 void testCollisions();
 void testAvalanche();
-void testGuessing();
+void testSalt();
 
 #endif

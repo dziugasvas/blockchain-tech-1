@@ -69,10 +69,10 @@ int main(int argc, char* argv[]) {
             testInputs();
             testSameInput();
             testDeterminism();
-            testSpeed();
+            testEfficiency();
             testCollisions();
             testAvalanche();
-            testGuessing();
+            testSalt();
             return 0;
 
         default:

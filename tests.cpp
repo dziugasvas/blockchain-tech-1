@@ -22,24 +22,24 @@ using std::set;
 
 void testInputs()
 {
-    cout << "Ivesties testai:" << endl << endl;
+    cout << "Ivesties testai: ";
 
-    int tests = 0;
-    int passed = 0;
+    int testai = 0;
+    int sekmingi = 0;
 
-    tests++;
+    testai++;
     if (hashFunction("") != "") {
-        passed++;
+        sekmingi++;
     }
 
-    tests++;
+    testai++;
     if (hashFunction("a") != "") {
-        passed++;
+        sekmingi++;
     }
 
-    tests++;
+    testai++;
     if (hashFunction("a") != hashFunction("b")) {
-        passed++;
+        sekmingi++;
     }
 
     string characters =
@@ -54,9 +54,9 @@ void testInputs()
         longInput += characters[randomIndex];
     }
 
-    tests++;
+    testai++;
     if (hashFunction(longInput) != "") {
-        passed++;
+        sekmingi++;
     }
 
     string originalas = "ciatestas";
@@ -65,83 +65,75 @@ void testInputs()
     string pakeistasVidur = "ciatxstas";
     string pakeistaPabaig = "ciatestax";
 
-    tests++;
+    testai++;
     if (hashFunction(originalas) != hashFunction(pakeistaPradz)) {
-        passed++;
+        sekmingi++;
     }
 
-    tests++;
+    testai++;
     if (hashFunction(originalas) != hashFunction(pakeistasVidur)) {
-        passed++;
+        sekmingi++;
     }
 
-    tests++;
+    testai++;
     if (hashFunction(originalas) != hashFunction(pakeistaPabaig)) {
-        passed++;
+        sekmingi++;
     }
 
-    tests++;
+    testai++;
     if (hashFunction("abcabcabcabc") != hashFunction("abcdef")) {
-        passed++;
+        sekmingi++;
     }
 
-    tests++;
+    testai++;
     if (hashFunction("abcdef") != hashFunction("fedcba")) {
-        passed++;
+        sekmingi++;
     }
 
-    tests++;
+    testai++;
     if (hashFunction(" tekstas") != hashFunction("tekstas ")) {
-        passed++;
+        sekmingi++;
     }
 
-    tests++;
+    testai++;
     if (hashFunction("tekstas") != hashFunction("tekstas\n")) {
-        passed++;
+        sekmingi++;
     }
 
     string utf8Input = "ąčęėįšųūž";
 
-    tests++;
+    testai++;
     if (hashFunction(utf8Input) != "") {
-        passed++;
+        sekmingi++;
     }
 
-    cout << passed << "/" << tests << " testai sekmingi" << endl;
+    cout << sekmingi << "/" << testai << " testai sekmingi" << endl;
 }
 
 void testSameInput()
 {
-    cout << "Rankinio ir failo ivesties palyginimas:" << endl;
-
     string tekstas = "labas";
-
     string hashas = hashFunction(tekstas);
 
     string fileContent;
 
     if (!readFile("input.txt", fileContent)) {
-        cout << "Nepavyko nuskaityti failo" << endl;
+        cout << "Rankines ir failo ivesties testas: Nepavyko" << endl;
         return;
     }
 
     string fileHash = hashFunction(fileContent);
 
-    cout << endl;
-    cout << "Rankos hash: " << hashas << endl;
-    cout << "Failo hash: " << fileHash << endl;
-
     if (hashas == fileHash) {
-        cout << "Testas praejo" << endl;
-    } else {
-        cout << "Testas nepraejo" << endl;
+        cout << "Rankines ir failo ivesties testas: Sekmingas" << endl;
+    }
+    else {
+        cout << "Rankines ir failo ivesties testas: Nepavyko" << endl;
     }
 }
 
 void testDeterminism()
 {
-    cout << "Determinizmo testas:" << endl;
-
     string inputA = "labas";
     string inputB = "testas";
 
@@ -149,54 +141,48 @@ void testDeterminism()
     string hashB = hashFunction(inputB);
     string hashA2 = hashFunction(inputA);
 
-    cout << "Pirma ivestis: " << inputA << endl;
-    cout << "Hash: " << hashA1 << endl;
-
-    cout << "Antra ivestis: " << inputB << endl;
-    cout << "Hash: " << hashB << endl;
-
-    cout << "Pirma ivestis pakartota: " << inputA << endl;
-    cout << "Hash: " << hashA2 << endl;
-
-
-    if (hashA1 == hashA2) {
-        cout << "Testas praejo" << endl;
+    if (hashA1 == hashA2 && hashA1 != hashB) {
+        cout << "Determinizmo testas: Sekmingas" << endl;
     }
-    else
-    {
-        cout << "Testas nepraejo" << endl;
+    else {
+        cout << "Determinizmo testas: Nepavyko" << endl;
     }
-
-    cout << endl;
 }
 
-void testSpeed()
+void testEfficiency()
 {
-    cout << "Spartos testas:" << endl;
-
     vector<string> lines;
 
     if (!readLines("konstitucija.txt", lines)) {
-        cout << "Nepavyko nuskaityti failo" << endl;
+        cout << "Efektyvumo testas: Nepavyko nuskaityti failo" << endl;
         return;
     }
 
-    ofstream results("spartos_rezultatai.txt");
+    ofstream results("efektyvumo_rezultatai.txt");
 
     if (!results.is_open()) {
-        cout << "Nepavyko sukurti rezultatu failo!" << endl;
+        cout << "Efektyvumo testas: Nepavyko sukurti rezultatu failo" << endl;
         return;
     }
 
-    results << std::setw(10) << "Eilutes" << std::setw(10) << "Baitai" << std::setw(15) << "Vidurkis"
-            << std::setw(12) << "Min" << std::setw(12) << "Max" << endl;
+    results << std::setw(10) << "Eilutes"
+            << std::setw(10) << "Baitai"
+            << std::setw(15) << "Vidurkis"
+            << std::setw(12) << "Min"
+            << std::setw(12) << "Max" << endl;
 
     int lineCount = 1;
 
-    while (lineCount < lines.size()) {
+    while (true) {
+        int currentLineCount = lineCount;
+
+        if (currentLineCount > lines.size()) {
+            currentLineCount = lines.size();
+        }
+
         string input;
 
-        for (int i = 0; i < lineCount; i++) {
+        for (int i = 0; i < currentLineCount; i++) {
             input += lines[i];
             input += "\n";
         }
@@ -214,7 +200,10 @@ void testSpeed()
 
             auto end = std::chrono::high_resolution_clock::now();
 
-            double time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+            double time =
+                std::chrono::duration_cast<std::chrono::nanoseconds>(
+                    end - start
+                ).count();
 
             times.push_back(time);
         }
@@ -222,7 +211,7 @@ void testSpeed()
         double average = 0;
 
         for (double time : times) {
-            average = average + time;
+            average += time;
         }
 
         average = average / times.size();
@@ -240,65 +229,22 @@ void testSpeed()
             }
         }
 
-        results << std::setw(10) << lineCount << std::setw(10) << input.size() << std::setw(15) << average
-                << std::setw(12) << minTime << std::setw(12) << maxTime << endl;
+        results << std::setw(10) << currentLineCount
+                << std::setw(10) << input.size()
+                << std::setw(15) << average
+                << std::setw(12) << minTime
+                << std::setw(12) << maxTime << endl;
+
+        if (currentLineCount == lines.size()) {
+            break;
+        }
 
         lineCount = lineCount * 2;
     }
 
-    string input;
-
-    for (const string& line : lines) {
-        input += line;
-        input += "\n";
-    }
-
-    for (int i = 0; i < 10; i++) {
-        hashFunction(input);
-    }
-
-    vector<double> times;
-
-    for (int i = 0; i < 5; i++) {
-        auto start = std::chrono::high_resolution_clock::now();
-
-        hashFunction(input);
-
-        auto end = std::chrono::high_resolution_clock::now();
-
-        double time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-
-        times.push_back(time);
-    }
-
-    double average = 0;
-
-    for (double time : times) {
-        average = average + time;
-    }
-
-    average = average / times.size();
-
-    double minTime = times[0];
-    double maxTime = times[0];
-
-    for (double time : times) {
-        if (time < minTime) {
-            minTime = time;
-        }
-
-        if (time > maxTime) {
-            maxTime = time;
-        }
-    }
-
-    results << std::setw(10) << lines.size() << std::setw(10) << input.size() << std::setw(15) << average
-            << std::setw(12) << minTime << std::setw(12) << maxTime << endl;
-
     results.close();
 
-    cout << endl;
-    cout << "Rezultatai issaugoti faile: spartos_rezultatai.txt" << endl;
+    cout << "Efektyvumo testas: Rezultatai issaugoti" << endl;
 }
 
 void testCollisions()
@@ -317,8 +263,7 @@ void testCollisions()
         return;
     }
 
-    results << std::setw(12) << "Ilgis"
-            << std::setw(18) << "Poru kolizijos" << endl;
+    results << std::setw(12) << "Ilgis" << std::setw(18) << "Poru kolizijos" << endl;
 
     srand(12345);
 
@@ -384,8 +329,7 @@ void testCollisions()
 
     results.close();
 
-    cout << "Koliziju testas: " << endl;
-    cout << "Rezultatai issaugoti faile: koliziju_rezultatai.txt" << endl;
+    cout << "Koliziju testas: Rezultatai issaugoti" << endl;
 }
 
 int hexValue(char c)
@@ -429,8 +373,6 @@ void testAvalanche()
 
     double totalBitAverage = 0;
     double totalHexAverage = 0;
-
-    int totalPairs = 0;
 
     int histogram[33] = {};
 
@@ -477,13 +419,10 @@ void testAvalanche()
                     hexDifference++;
                 }
 
-                int valueA = hexValue(hashA[j]);
-                int valueB = hexValue(hashB[j]);
+                int difference =
+                    hexValue(hashA[j]) ^ hexValue(hashB[j]);
 
-                int difference = valueA ^ valueB;
-
-                for (int k = 0; k < 4; k++)
-                {
+                for (int k = 0; k < 4; k++) {
                     if (difference & (1 << k)) {
                         bitDifference++;
                     }
@@ -498,8 +437,6 @@ void testAvalanche()
                 maxBits = bitDifference;
             }
 
-            bitAverage = bitAverage + bitDifference;
-
             if (hexDifference < minHex) {
                 minHex = hexDifference;
             }
@@ -508,7 +445,8 @@ void testAvalanche()
                 maxHex = hexDifference;
             }
 
-            hexAverage = hexAverage + hexDifference;
+            bitAverage += bitDifference;
+            hexAverage += hexDifference;
 
             histogram[bitDifference / 8]++;
         }
@@ -516,44 +454,30 @@ void testAvalanche()
         bitAverage = bitAverage / 25000;
         hexAverage = hexAverage / 25000;
 
-        double bitMinPercent = minBits * 100.0 / 256;
-        double bitMaxPercent = maxBits * 100.0 / 256;
-        double bitAveragePercent = bitAverage * 100.0 / 256;
-
-        double hexMinPercent = minHex * 100.0 / 64;
-        double hexMaxPercent = maxHex * 100.0 / 64;
-        double hexAveragePercent = hexAverage * 100.0 / 64;
-
         results << std::setw(10) << length
-                << std::setw(15) << bitMinPercent
-                << std::setw(15) << bitMaxPercent
-                << std::setw(15) << bitAveragePercent
-                << std::setw(15) << hexMinPercent
-                << std::setw(15) << hexMaxPercent
-                << std::setw(15) << hexAveragePercent << endl;
+                << std::setw(15) << minBits * 100.0 / 256
+                << std::setw(15) << maxBits * 100.0 / 256
+                << std::setw(15) << bitAverage * 100.0 / 256
+                << std::setw(15) << minHex * 100.0 / 64
+                << std::setw(15) << maxHex * 100.0 / 64
+                << std::setw(15) << hexAverage * 100.0 / 64
+                << endl;
 
-        totalBitAverage = totalBitAverage + bitAverage;
-        totalHexAverage = totalHexAverage + hexAverage;
-
-        totalPairs = totalPairs + 25000;
+        totalBitAverage += bitAverage;
+        totalHexAverage += hexAverage;
     }
 
-    totalBitAverage = totalBitAverage / 4;
-    totalHexAverage = totalHexAverage / 4;
-
     results << endl;
-
     results << "Bendras rezultatas:" << endl;
-    results << "Poru: " << totalPairs << endl;
+    results << "Poru: 100000" << endl;
 
     results << "Bitu skirtumo vidurkis: "
-            << totalBitAverage * 100.0 / 256 << "%" << endl;
+            << totalBitAverage / 4 * 100.0 / 256 << "%" << endl;
 
     results << "Hex skirtumo vidurkis: "
-            << totalHexAverage * 100.0 / 64 << "%" << endl;
+            << totalHexAverage / 4 * 100.0 / 64 << "%" << endl;
 
     results << endl;
-
     results << "Bitu skirtumo histograma:" << endl;
 
     for (int i = 0; i < 32; i++)
@@ -567,10 +491,10 @@ void testAvalanche()
 
     results.close();
 
-    cout << "Rezultatai issaugoti faile: lavinos_rezultatai.txt" << endl;
+    cout << "Lavinos efektas: Rezultatai issaugoti" << endl;
 }
 
-void testGuessing()
+void testSalt()
 {
     string target = "4729";
     string salt = "ABC";
@@ -582,11 +506,10 @@ void testGuessing()
         return;
     }
 
-    // Be druskos
-
     string targetHash = hashFunction(target);
 
     int attempts = 0;
+    int firstAttempts = 0;
     int matches = 0;
 
     auto start = std::chrono::high_resolution_clock::now();
@@ -602,6 +525,10 @@ void testGuessing()
 
         if (hashFunction(candidate) == targetHash) {
             matches++;
+
+            if (firstAttempts == 0) {
+                firstAttempts = attempts;
+            }
         }
     }
 
@@ -614,15 +541,15 @@ void testGuessing()
     results << "Tikslas: " << target << endl;
     results << "Bandymu: " << attempts << endl;
     results << "Sutapimu: " << matches << endl;
-    results << "Pirmas sutapimas: " << target << endl;
-    results << "Bandymu iki pirmo sutapimo: " << 4730 << endl;
-    results << "Visi sutape kandidatai: 4699 4729 4732 5029 5032" << endl;
+    results << "Bandymu iki pirmo sutapimo: " << firstAttempts << endl;
     results << "Laikas: " << time << " us" << endl;
     results << endl;
+
 
     targetHash = hashFunction(target + salt);
 
     attempts = 0;
+    firstAttempts = 0;
     matches = 0;
 
     start = std::chrono::high_resolution_clock::now();
@@ -638,6 +565,10 @@ void testGuessing()
 
         if (hashFunction(candidate + salt) == targetHash) {
             matches++;
+
+            if (firstAttempts == 0) {
+                firstAttempts = attempts;
+            }
         }
     }
 
@@ -651,31 +582,22 @@ void testGuessing()
     results << "Druska: " << salt << endl;
     results << "Bandymu: " << attempts << endl;
     results << "Sutapimu: " << matches << endl;
-    results << "Pirmas sutapimas: " << target << endl;
-    results << "Bandymu iki pirmo sutapimo: " << 4730 << endl;
-    results << "Visi sutape kandidatai: 4699 4729 4732 5029 5032" << endl;
+    results << "Bandymu iki pirmo sutapimo: " << firstAttempts << endl;
     results << "Laikas: " << time << " us" << endl;
     results << endl;
 
-
-    // Slaptas atsitiktinumas
 
     string secret = "X7pQ2";
     string secretHash = hashFunction(target + secret);
 
     results << "Slaptas atsitiktinumas" << endl;
-    results << "Tikslas: " << target << endl;
     results << "Atsitiktinumas: " << secret << endl;
-    results << "Hash patikrinimas: ";
 
     if (hashFunction(target + secret) == secretHash) {
-        results << "TAIP" << endl;
-    }
-    else {
-        results << "NE" << endl;
+        results << "Hash patikrinimas: TAIP" << endl;
     }
 
     results.close();
 
-    cout << "Rezultatai issaugoti faile: spejimo_rezultatai.txt" << endl;
+    cout << "Spejimo testas: Rezultatai issaugoti" << endl;
 }
