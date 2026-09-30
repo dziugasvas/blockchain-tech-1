@@ -1,4 +1,4 @@
-#include "hash.h"
+#include "funkcijos.h"
 #include "tests.h"
 #include <iostream>
 #include <fstream>
@@ -9,29 +9,6 @@ using std::cout;
 using std::ifstream;
 using std::endl;
 using std::cin;
-
-bool readFile (const string& filename, string& content) {
-
-    content.clear();
-
-    ifstream file(filename, std::ios::binary);
-
-    if (!file.is_open()) {
-        cout << "Nepavyko atidaryti failo." << endl;
-        return false;
-    }
-
-    char c;
-
-    while (file.get(c)) {
-        content += c;
-    }
-
-    file.close();
-
-    return true;
-
-}
 
 int main(int argc, char* argv[]) {
 
@@ -87,8 +64,10 @@ int main(int argc, char* argv[]) {
         break;
 
         case 3:
-            cout << "Naudojamas rezimas: testavimas" << endl;
+            cout << "Atliekami testavimai:" << endl;
             testInputs();
+            testSameInput();
+            testDeterminism();
             return 0;
 
         default:

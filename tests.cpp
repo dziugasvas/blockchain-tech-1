@@ -1,13 +1,16 @@
 #include "tests.h"
-#include "hash.h"
+#include "funkcijos.h"
 #include <iostream>
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 
 using std::cout;
 using std::endl;
 using std::string;
+using std::getline;
+using std::cin;
 
 void testInputs() {
 
@@ -104,6 +107,66 @@ void testInputs() {
 
     cout << "Ivestis: " << utf8Input << endl;
     cout << "Hash: " << hashFunction(utf8Input) << endl;
+
+    cout << endl;
+}
+
+void testSameInput()
+{
+    cout << "Rankinio ir failo ivesties palyginimas:" << endl;
+
+    string tekstas = "labas";
+
+    string hashas = hashFunction(tekstas);
+
+    string fileContent;
+
+    if (!readFile("input.txt", fileContent)) {
+        cout << "Nepavyko nuskaityti failo" << endl;
+        return;
+    }
+
+    string fileHash = hashFunction(fileContent);
+
+    cout << endl;
+    cout << "Rankos hash: " << hashas << endl;
+    cout << "Failo hash: " << fileHash << endl;
+
+    if (hashas == fileHash) {
+        cout << "Testas praejo" << endl;
+    } else {
+        cout << "Testas nepraejo" << endl;
+    }
+}
+
+void testDeterminism()
+{
+    cout << "Determinizmo testas:" << endl;
+
+    string inputA = "labas";
+    string inputB = "testas";
+
+    string hashA1 = hashFunction(inputA);
+    string hashB = hashFunction(inputB);
+    string hashA2 = hashFunction(inputA);
+
+    cout << "Pirma ivestis: " << inputA << endl;
+    cout << "Hash: " << hashA1 << endl;
+
+    cout << "Antra ivestis: " << inputB << endl;
+    cout << "Hash: " << hashB << endl;
+
+    cout << "Pirma ivestis pakartota: " << inputA << endl;
+    cout << "Hash: " << hashA2 << endl;
+
+
+    if (hashA1 == hashA2) {
+        cout << "Testas praejo" << endl;
+    }
+    else
+    {
+        cout << "Testas nepraejo" << endl;
+    }
 
     cout << endl;
 }
