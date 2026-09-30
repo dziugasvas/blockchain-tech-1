@@ -1,19 +1,14 @@
+#include "hash.h"
+#include "tests.h"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <cstdint>
-#include <sstream>
-#include <iomanip>
 
 using std::string;
 using std::cout;
 using std::ifstream;
 using std::endl;
 using std::cin;
-using std::stringstream;
-using std::hex;
-using std::setw;
-using std::setfill;
 
 bool readFile (const string& filename, string& content) {
 
@@ -36,28 +31,6 @@ bool readFile (const string& filename, string& content) {
 
     return true;
 
-}
-
-string hashFunction(const string& input) {
-    uint32_t state[8];
-
-    for (int i = 0; i < 8; i++) {
-        state[i] = 0;
-    }
-
-    for (unsigned char byte : input) {
-        for (int i = 0; i < 8; i++) {
-            state[i] = state[i] * 7 + byte + i;
-        }
-    }
-
-    std::stringstream result;
-
-    for (int i = 0; i < 8; i++) {
-        result << hex << setw(8) << setfill('0') << state[i];
-    }
-
-    return result.str();
 }
 
 int main(int argc, char* argv[]) {
@@ -84,6 +57,7 @@ int main(int argc, char* argv[]) {
     cout << "Pasirinkite rezima: " << endl;
     cout << "1 - Ivesti teksta ranka" << endl;
     cout << "2 - Nuskaityti teksta is pasirinkto failo" << endl;
+    cout << "3 - Atlikti testavimus" << endl;
     cout << "Pasirinkimas: ";
 
     cin >> mode;
@@ -111,6 +85,11 @@ int main(int argc, char* argv[]) {
             }
 
         break;
+
+        case 3:
+            cout << "Naudojamas rezimas: testavimas" << endl;
+            testInputs();
+            return 0;
 
         default:
             cout << "Neteisingas pasirinkimas!" << endl;
