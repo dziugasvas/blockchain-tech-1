@@ -139,7 +139,7 @@ Didėjant įvesties dydžiui, bendras maišos funkcijos vykdymo laikas taip pat 
 
 Grafikas:
 
-
+<img width="563" height="335" alt="Screenshot at Oct 01 11-20-42" src="https://github.com/user-attachments/assets/1b9c85bd-ba5d-46e2-b975-50406ee2763a" />
 
 Didėjant įvesties dydžiui, bendras maišos funkcijos vykdymo laikas taip pat didėjo.
 
