@@ -135,8 +135,6 @@ Maišos funkcijos vykdymo laikas buvo matuojamas naudojant skirtingo dydžio įv
 | 512 | 47434 | 877358 | 809875 | 1022790 |
 | 789 | 75595 | 1132180 | 1084330 | 1195330 |
 
-Didėjant įvesties dydžiui, bendras maišos funkcijos vykdymo laikas taip pat didėjo.
-
 Grafikas:
 
 <img width="563" height="335" alt="Screenshot at Oct 01 11-20-42" src="https://github.com/user-attachments/assets/1b9c85bd-ba5d-46e2-b975-50406ee2763a" />
@@ -188,7 +186,7 @@ Bendras bitų skirtumo vidurkis buvo **44,8899 %**, o šešioliktainių simboli�
 
 #### Bitų skirtumo histograma
 
-Papildomai buvo apskaičiuotas bitų skirtumo pasiskirstymas. Rezultatai suskirstyti į 8 procentinių punktų intervalus.
+Papildomai buvo apskaičiuotas bitų skirtumo pasiskirstymas. Rezultatai suskirstyti į 8 bitų intervalus, nurodant, kiek iš 256 hash bitų pasikeitė kiekvienu atveju.
 
 ```text
 0–7:      0
