@@ -166,7 +166,7 @@ Maišos funkcijos vykdymo laikas buvo matuojamas naudojant skirtingo dydžio įv
 
 Grafikas:
 
-<!-- TODO: čia įkelkite naują v0.2 efektyvumo grafiką (senasis grafikas buvo v0.1 duomenims) -->
+<img width="566" height="339" alt="Screenshot at Oct 01 12-25-33" src="https://github.com/user-attachments/assets/4ccc4d2e-b441-4183-baf9-980778b2b011" />
 
 Didėjant įvesties dydžiui, bendras maišos funkcijos vykdymo laikas taip pat didėjo. Matavimai atlikti po 5 kartus kiekvienam dydžiui, todėl pavieniai taškai gali labiau išsiskirti: pavyzdžiui, 256 eilučių įvestyje (20 409 baitų) laikas yra 478 816 ns, o 128 eilučių įvestyje (9 155 baitai) – 325 125 ns.
 
