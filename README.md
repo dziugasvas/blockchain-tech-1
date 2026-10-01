@@ -353,3 +353,5 @@ Vidutinis vienos maišos skaičiavimo laikas (ns), naudojant tą patį efektyvum
 - **Įrankis:** Claude (Anthropic).
 - **Kam naudota:** v0.2 versijos maišos funkcijai (`hashFunction`) atnaujinti. Pasiūlyti ir įgyvendinti: apdorojimas 32 baitų blokais su užpildymu ir įvesties ilgiu, nenulinės pradinės konstantos, raundų permutacija (sudėtis, pasukimas, XOR, daugyba nelyginėmis konstantomis, `x >> 15`) ir ankstesnės būsenos pridėjimas po kiekvieno bloko.
 - **Likusi dalis:** testai (`tests.cpp`), jų paleidimas ir rezultatų pateikimas atlikti savarankiškai; v0.1.2 funkcija ir testai sukurti be DI.
+
+**Testavimo aplinka:** Apple MacBook Air (M4), macOS, Apple clang (komanda `g++` macOS sistemoje), kompiliavimas per `Makefile` (`g++ -std=c++17`, be optimizavimo parametrų). Tai mokomoji maišos funkcija, o ne saugi maiša: ji nėra skirta slaptažodžiams ar realiems duomenims saugoti, o atlikti testai nepatvirtina jos kriptografinio saugumo.
